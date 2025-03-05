@@ -2,7 +2,7 @@ import {Navigate, Route} from "react-router";
 import TodoIndexPage from "../pages/todo/indexPage.tsx";
 import {lazy, Suspense} from "react";
 
-const Loading = "<div>Loading..............</div>"
+const Loading = <div>Loading..............</div>
 
 const TodoList = lazy(() =>
     import('../pages/todo/listPage.tsx'))

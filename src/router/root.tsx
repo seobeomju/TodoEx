@@ -2,7 +2,7 @@ import {Route} from "react-router";
 import {lazy, Suspense} from "react";
 import todoRouter from "./todoRouter.tsx";
 
-const Loading = "<div>Loading..............</div>"
+const Loading = <div>Loading..............</div>
 
 const Main =
     lazy(() => import("../pages/mainPage"))
