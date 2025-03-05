@@ -10,6 +10,10 @@ const TodoList = lazy(() =>
 const TodoAdd = lazy(() =>
     import('../pages/todo/addPage.tsx'))
 
+const TodoRead = lazy(() =>
+    import('../pages/todo/readPage.tsx'))
+
+
 export default function todoRouter() {
 
     return (
@@ -19,6 +23,8 @@ export default function todoRouter() {
                element={<Suspense fallback={Loading}><TodoList/></Suspense>}></Route>
         <Route path='add'
                element={<Suspense fallback={Loading}><TodoAdd/></Suspense>}></Route>
+        <Route path='read/:tno'
+               element={<Suspense fallback={Loading}><TodoRead/></Suspense>}></Route>
     </Route>
     )
 }
