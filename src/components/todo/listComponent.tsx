@@ -1,4 +1,6 @@
 import {useSearchParams} from "react-router";
+import {useEffect} from "react";
+import {getTodoList} from "../../api/todoApi.tsx";
 
 function ListComponent() {
 
@@ -10,7 +12,14 @@ function ListComponent() {
     const sizeStr:string | null = searchParams.get("size")
     const size: number = !sizeStr ? 10 : Number(pageStr)
 
-    console.log(page, size)
+    useEffect(() => {
+
+        getTodoList(page,size).then(data => {
+            console.log(data)
+        })
+
+    },[page,size])
+
 
 
 
