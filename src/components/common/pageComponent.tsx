@@ -7,15 +7,22 @@ interface PageComponentProps<T> {
 
 function PageComponent({serverData}: PageComponentProps<unknown> ) {
 
-    const {page,size,prev,next,start,end} = serverData
+    const {page,prev,next,start,end} = serverData
 
-    const createRange = (start, end) => Array.from({ length: end - start + 1 }, (_, i) => start + i);
+    const pageNumArr =  Array.from({ length: end - start + 1 }, (_, i) => start + i);
+
 
     return (
         <div>
-            <div>이전</div>
-            <div></div>
-            <div>다음</div>
+
+            {prev && <div>이전</div>}
+
+            {pageNumArr.map((num, idx) =>
+                <div key={idx}>
+                    {num}
+                </div>)}
+
+            {next && <div>다음</div>}
         </div>
     );
 }

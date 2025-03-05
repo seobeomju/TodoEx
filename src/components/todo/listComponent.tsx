@@ -2,6 +2,7 @@ import {useSearchParams} from "react-router";
 import {useEffect, useState} from "react";
 import {getTodoList} from "../../api/todoApi.tsx";
 import LoadingComponent from "../common/loadingComponent.tsx";
+import PageComponent from "../common/pageComponent.tsx";
 
 const initState:PageResponse<Todo> = {
     dtoList: [],
@@ -62,6 +63,9 @@ function ListComponent() {
                 )}
                 </ul>
             </div>
+
+            <PageComponent serverData={serverData}></PageComponent>
+
         </div>
     );
 }
