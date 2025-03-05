@@ -7,6 +7,9 @@ const Loading = <div>Loading..............</div>
 const TodoList = lazy(() =>
     import('../pages/todo/listPage.tsx'))
 
+const TodoAdd = lazy(() =>
+    import('../pages/todo/addPage.tsx'))
+
 export default function todoRouter() {
 
     return (
@@ -14,6 +17,8 @@ export default function todoRouter() {
         <Route index element={<Navigate to={'list'} replace />}></Route>
         <Route path='list'
                element={<Suspense fallback={Loading}><TodoList/></Suspense>}></Route>
+        <Route path='add'
+               element={<Suspense fallback={Loading}><TodoAdd/></Suspense>}></Route>
     </Route>
     )
 }
