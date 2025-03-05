@@ -1,3 +1,4 @@
+import {NavLink} from "react-router";
 
 type SidebarProps = {
     isOpen: boolean;
@@ -15,8 +16,16 @@ const CustomSidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => (
         </button>
         <nav>
             <ul>
-                <li className="py-2">Dashboard</li>
-                <li className="py-2">Users</li>
+                <li className="py-2">
+                    <NavLink to="/" style={({ isActive }) => ({ color: isActive ? "red" : "white" })}>
+                        홈
+                    </NavLink>
+                </li>
+                <li className="py-2">
+                    <NavLink to="/about" className={({ isActive }) => (isActive ? "active-link" : "")}>
+                        소개
+                    </NavLink>
+                </li>
                 <li className="py-2">Settings</li>
             </ul>
         </nav>

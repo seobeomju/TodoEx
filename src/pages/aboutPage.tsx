@@ -1,9 +1,12 @@
+import CustomLayout from "../layouts/customLayout.tsx";
 
 function AboutPage() {
     return (
-        <div>
-            <div>About Page</div>
-        </div>
+        <CustomLayout>
+
+            <h2 className="text-lg font-semibold">About Page</h2>
+
+        </CustomLayout>
     );
 }
 
