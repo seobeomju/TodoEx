@@ -1,5 +1,6 @@
 import {Route} from "react-router";
 import {lazy, Suspense} from "react";
+import TodoIndexPage from "../pages/todo/indexPage.tsx";
 
 
 const Loading = "<div>Loading..............</div>"
@@ -15,7 +16,12 @@ export default function rootRouter() {
 
     return [
         <Route path={'/'} element={ <Suspense fallback={Loading}><Main/></Suspense> } ></Route>,
-        <Route path={'/about'} element={ <Suspense fallback={Loading}><About/></Suspense> } ></Route>
+        <Route path={'/about'} element={ <Suspense fallback={Loading}><About/></Suspense> } ></Route>,
+
+        <Route path='/todo' element={<TodoIndexPage/>}>
+
+        </Route>
+
     ]
 
 }
