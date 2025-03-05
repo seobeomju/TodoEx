@@ -19,12 +19,7 @@ export default function rootRouter() {
         <Route path={'/'} element={ <Suspense fallback={Loading}><Main/></Suspense> } ></Route>,
         <Route path={'/about'} element={ <Suspense fallback={Loading}><About/></Suspense> } ></Route>,
 
-        <Route path='/todo' element={<TodoIndexPage/>}>
 
-            <Route index element={<Navigate to={'list'} replace />}></Route>
-            <Route path='list' element={<ListPage/>}></Route>
-
-        </Route>
 
     ]
 

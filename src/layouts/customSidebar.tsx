@@ -18,15 +18,19 @@ const CustomSidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => (
             <ul>
                 <li className="py-2">
                     <NavLink to="/" style={({ isActive }) => ({ color: isActive ? "red" : "white" })}>
-                        홈
+                        Main
                     </NavLink>
                 </li>
                 <li className="py-2">
                     <NavLink to="/about" className={({ isActive }) => (isActive ? "active-link" : "")}>
-                        소개
+                        About
                     </NavLink>
                 </li>
-                <li className="py-2">Settings</li>
+                <li className="py-2">
+                    <NavLink to="/todo" className={({ isActive }) => (isActive ? "active-link" : "")}>
+                        Todo
+                    </NavLink>
+                </li>
             </ul>
         </nav>
     </aside>
