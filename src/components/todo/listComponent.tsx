@@ -1,6 +1,17 @@
 import {useSearchParams} from "react-router";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {getTodoList} from "../../api/todoApi.tsx";
+
+const initState:PageResponse<Todo> = {
+    dtoList: [],
+    total:0,
+    size: 0,
+    end : 0,
+    next: false,
+    prev: false,
+    page: 0,
+    start: 0
+}
 
 function ListComponent() {
 
@@ -12,10 +23,12 @@ function ListComponent() {
     const sizeStr:string | null = searchParams.get("size")
     const size: number = !sizeStr ? 10 : Number(pageStr)
 
+    const [serverData, setServerData] = useState(initState)
+
     useEffect(() => {
 
         getTodoList(page,size).then(data => {
-            console.log(data)
+            setServerData(data)
         })
 
     },[page,size])
@@ -28,6 +41,22 @@ function ListComponent() {
 
             <div className="flex flex-wrap mx-auto justify-center p-6">
                 List Component
+            </div>
+            <div>
+                <ul className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+                {serverData.dtoList.map(todo =>
+                    <li
+                        key={todo.tno}
+                        className="flex justify-between items-center p-4 border-b last:border-none hover:bg-gray-100"
+                    >
+                        <span className="font-medium text-gray-900">{todo.tno}</span>
+                        <span className="font-medium text-gray-900">{todo.title}</span>
+                        <span className="text-gray-600">{todo.writer}</span>
+                        <span className="text-gray-500 text-sm">{todo.regDate}</span>
+                    </li>
+                )}
+                </ul>
+
             </div>
         </div>
     );
