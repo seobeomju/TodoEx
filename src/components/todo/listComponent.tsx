@@ -1,4 +1,4 @@
-import {useSearchParams} from "react-router";
+import {useNavigate, useSearchParams} from "react-router";
 import {useEffect, useState} from "react";
 import {getTodoList} from "../../api/todoApi.tsx";
 import LoadingComponent from "../common/loadingComponent.tsx";
@@ -28,6 +28,14 @@ function ListComponent() {
     const [serverData, setServerData] = useState(initState)
     const [loading, setLoading] = useState(false)
 
+    const navigate = useNavigate()
+
+    const moveListPage = (page:number) => {
+
+        navigate(`/todo/list?page=${page}`)
+
+    }
+
     useEffect(() => {
 
         setLoading(true)
@@ -37,7 +45,7 @@ function ListComponent() {
                 setServerData(data)
                 setLoading(false)
             })
-        }, 2000)
+        }, 1000)
     },[page,size])
 
     return (
@@ -64,7 +72,7 @@ function ListComponent() {
                 </ul>
             </div>
 
-            <PageComponent serverData={serverData}></PageComponent>
+            <PageComponent serverData={serverData} moveListPage={moveListPage}></PageComponent>
 
         </div>
     );
