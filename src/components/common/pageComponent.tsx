@@ -1,7 +1,6 @@
 
 
 interface PageComponentProps<T> {
-
     serverData: PageResponse<T>
 }
 
