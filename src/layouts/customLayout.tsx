@@ -1,9 +1,10 @@
 import { useState } from "react";
-import CustomSidebar from "../layouts/customSidebar.tsx";
+import CustomSidebar from "./customSidebar.tsx";
 
 
 
-const MainPage: React.FC = () => {
+
+const CustomLayout: React.FC = () => {
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
@@ -45,4 +46,4 @@ const MainPage: React.FC = () => {
     );
 };
 
-export default MainPage;
+export default CustomLayout;
