@@ -2,33 +2,38 @@ import { useState} from "react";
 import {postTodo} from "../../api/todoApi.tsx";
 import useCustomMove from "../../hooks/useCustomMove.tsx";
 import LoadingComponent from "../common/loadingComponent.tsx";
+import ResultComponent from "../common/resultComponent.tsx";
 
 function AddComponent() {
 
     const [todo, setTodo] = useState<Todo>({title:'',writer:''})
 
-    const { moveListPage , loading, setLoading} = useCustomMove()
+    const { moveListPage , loading, setLoading, result, setResult} = useCustomMove()
 
     const handleClick = () => {
 
         setLoading(true)
 
         setTimeout(()=> {
-
             postTodo(todo).then(todoNum => {
                 setLoading(false)
-                alert(todoNum)
-                moveListPage(1)
+                console.log(todoNum)
+                setResult(true)
+
             })
-
         },2000)
+    }
 
-
+    const closeFn = () => {
+        setResult(false)
+        moveListPage(1)
     }
 
 
     return (
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
+
+            <ResultComponent show={result} msg={'New Todo Added'} closeFn={closeFn}></ResultComponent>
 
             <LoadingComponent isLoading={loading}/>
 
