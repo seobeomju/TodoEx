@@ -12,7 +12,7 @@ function TodoIndexPage() {
                     <NavLink to={'/todo/add'}>ADD</NavLink>
                 </div>
             </div>
-            <div>
+            <div className="flex flex-box">
                 <Outlet></Outlet>
             </div>
         </CustomLayout>

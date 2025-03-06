@@ -17,13 +17,14 @@ const initState:PageResponse<Todo> = {
 
 function ListComponent() {
 
+    //?page=1&size20
     const [searchParams] = useSearchParams()
 
     const pageStr:string | null = searchParams.get("page")
     const page: number = !pageStr ? 1 : Number(pageStr)
 
     const sizeStr:string | null = searchParams.get("size")
-    const size: number = !sizeStr ? 10 : Number(pageStr)
+    const size: number = !sizeStr ? 10 : Number(sizeStr)
 
     const [serverData, setServerData] = useState(initState)
     const [loading, setLoading] = useState(false)
@@ -32,7 +33,7 @@ function ListComponent() {
 
     const moveListPage = (page:number) => {
 
-        navigate(`/todo/list?page=${page}`)
+        navigate(`/todo/list?page=${page}&size=${size}`)
 
     }
 
@@ -66,7 +67,6 @@ function ListComponent() {
                         <span className="font-medium text-gray-900">{todo.tno}</span>
                         <span className="text-gray-600">{todo.title}</span>
                         <span className="text-gray-600">{todo.writer}</span>
-                        <span className="text-gray-500 text-sm">{todo.regDate}</span>
                     </li>
                 )}
                 </ul>
