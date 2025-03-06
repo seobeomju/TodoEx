@@ -15,7 +15,7 @@ const initState:Todo = {
 function ModifyComponent() {
 
     //현재 tno 번호
-    const {tno, moveToList, loading,setLoading, result, setResult}  = useCustomMove()
+    const {tno, moveToList, loading,setLoading, result, setResult, moveRead}  = useCustomMove()
 
     const [todo, setTodo] = useState<Todo>(initState)
 
@@ -29,17 +29,39 @@ function ModifyComponent() {
 
     }, [tno]);
 
+    const [oper, setOper] = useState('M')
+
     const handleClickDelete = ()=> {
+
+        setOper('D')
+        setResult(true)
+
+
+    }
+
+    const handleClickModify = () => {
+
+        setOper('M')
         setResult(true)
     }
+
+    const msgStr = oper === 'M' ? 'Modifed...': 'Deleted....'
 
 
     return (
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
 
-            <ResultComponent show={result} msg={'Deleted'} closeFn={() => {
+            <ResultComponent show={result} msg={msgStr} closeFn={() => {
                     setResult(false)
+                    if(oper === 'M') {
+                        moveRead(tno)
+                    }else {
+                        moveToList()
+                    }
+
             }}></ResultComponent>
+
+
 
             <LoadingComponent isLoading={loading}/>
 
@@ -88,6 +110,7 @@ function ModifyComponent() {
                     </button>
                     <button
                         className="px-4 py-2 bg-green-500 text-white rounded"
+                        onClick={handleClickModify}
                     >Modify
                     </button>
                     <button
