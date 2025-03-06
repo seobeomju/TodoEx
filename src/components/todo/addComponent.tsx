@@ -10,6 +10,8 @@ function AddComponent() {
 
     const { moveListPage , loading, setLoading, result, setResult} = useCustomMove()
 
+    const [msg, setMsg] = useState('')
+
     const handleClick = () => {
 
         setLoading(true)
@@ -17,7 +19,7 @@ function AddComponent() {
         setTimeout(()=> {
             postTodo(todo).then(todoNum => {
                 setLoading(false)
-                console.log(todoNum)
+                setMsg(`New Todo ${todoNum} Added`)
                 setResult(true)
 
             })
@@ -33,7 +35,7 @@ function AddComponent() {
     return (
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
 
-            <ResultComponent show={result} msg={'New Todo Added'} closeFn={closeFn}></ResultComponent>
+            <ResultComponent show={result} msg={msg} closeFn={closeFn}></ResultComponent>
 
             <LoadingComponent isLoading={loading}/>
 
