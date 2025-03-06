@@ -46,7 +46,7 @@ function ListComponent() {
 
     const moveRead  = (tno:number|string) => {
 
-        navigate(`/todo/read/${tno}`)
+        navigate(`/todo/read/${tno}?page=${page}&size=${size}`)
     }
 
     useEffect(() => {

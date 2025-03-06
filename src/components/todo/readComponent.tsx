@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import {useLocation, useNavigate, useParams} from "react-router";
 import { useEffect, useState } from "react";
 import { getTodo } from "../../api/todoApi.tsx";
 
@@ -13,6 +13,12 @@ const initState: Todo = {
 function ReadComponent() {
 
     const [todo, setTodo] = useState<Todo>(initState);
+    const location = useLocation()
+    const navigate = useNavigate()
+
+    const moveToList = () => {
+        navigate(`/todo/list${location.search}`)
+    }
 
     const params = useParams(); // useParams에서 가져옴
 
@@ -39,27 +45,39 @@ function ReadComponent() {
             <div className="space-y-3">
                 <div>
                     <label className="block text-gray-600 text-sm font-medium">번호</label>
-                    <input type="text" value={todo.tno} readOnly className="w-full p-2 border rounded bg-gray-100 text-gray-700" />
+                    <input type="text" value={todo.tno} readOnly
+                           className="w-full p-2 border rounded bg-gray-100 text-gray-700"/>
                 </div>
 
                 <div>
                     <label className="block text-gray-600 text-sm font-medium">제목</label>
-                    <input type="text" value={todo.title} readOnly className="w-full p-2 border rounded bg-gray-100 text-gray-700" />
+                    <input type="text" value={todo.title} readOnly
+                           className="w-full p-2 border rounded bg-gray-100 text-gray-700"/>
                 </div>
 
                 <div>
                     <label className="block text-gray-600 text-sm font-medium">작성자</label>
-                    <input type="text" value={todo.writer} readOnly className="w-full p-2 border rounded bg-gray-100 text-gray-700" />
+                    <input type="text" value={todo.writer} readOnly
+                           className="w-full p-2 border rounded bg-gray-100 text-gray-700"/>
                 </div>
 
                 <div>
                     <label className="block text-gray-600 text-sm font-medium">등록일</label>
-                    <input type="text" value={todo.regDate} readOnly className="w-full p-2 border rounded bg-gray-100 text-gray-700" />
+                    <input type="text" value={todo.regDate} readOnly
+                           className="w-full p-2 border rounded bg-gray-100 text-gray-700"/>
                 </div>
 
                 <div>
                     <label className="block text-gray-600 text-sm font-medium">수정일</label>
-                    <input type="text" value={todo.modDate} readOnly className="w-full p-2 border rounded bg-gray-100 text-gray-700" />
+                    <input type="text" value={todo.modDate} readOnly
+                           className="w-full p-2 border rounded bg-gray-100 text-gray-700"/>
+                </div>
+                <div className="flex justify-end space-x-4">
+                    <button
+                        className="px-4 py-2 bg-blue-500 text-white rounded"
+                        onClick={moveToList}
+                    >List</button>
+                    <button className="px-4 py-2 bg-green-500 text-white rounded">Modify</button>
                 </div>
             </div>
         </div>
