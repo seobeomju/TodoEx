@@ -1,25 +1,36 @@
 import { useState} from "react";
 import {postTodo} from "../../api/todoApi.tsx";
 import useCustomMove from "../../hooks/useCustomMove.tsx";
+import LoadingComponent from "../common/loadingComponent.tsx";
 
 function AddComponent() {
 
     const [todo, setTodo] = useState<Todo>({title:'',writer:''})
 
-    const { moveListPage} = useCustomMove()
+    const { moveListPage , loading, setLoading} = useCustomMove()
 
     const handleClick = () => {
 
-        postTodo(todo).then(todoNum => {
-            alert(todoNum)
-            moveListPage(1)
-        })
+        setLoading(true)
+
+        setTimeout(()=> {
+
+            postTodo(todo).then(todoNum => {
+                setLoading(false)
+                alert(todoNum)
+                moveListPage(1)
+            })
+
+        },2000)
+
 
     }
 
 
     return (
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
+
+            <LoadingComponent isLoading={loading}/>
 
             <h2 className="text-xl font-semibold text-gray-800 mb-4">📌 Todo Add Component</h2>
 
