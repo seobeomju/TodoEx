@@ -20,6 +20,13 @@ function ReadComponent() {
         navigate(`/todo/list${location.search}`)
     }
 
+    const moveToModify = () => {
+
+        // /todo/modify/33?page=3&size=10
+
+        navigate(`/todo/modify/${todo.tno}${location.search}`)
+    }
+
     const params = useParams(); // useParams에서 가져옴
 
     const tnoStr = params.tno
@@ -77,7 +84,10 @@ function ReadComponent() {
                         className="px-4 py-2 bg-blue-500 text-white rounded"
                         onClick={moveToList}
                     >List</button>
-                    <button className="px-4 py-2 bg-green-500 text-white rounded">Modify</button>
+                    <button
+                        className="px-4 py-2 bg-green-500 text-white rounded"
+                        onClick={moveToModify}
+                    >Modify</button>
                 </div>
             </div>
         </div>
