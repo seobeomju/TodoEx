@@ -28,12 +28,20 @@ function ListComponent() {
 
     const [serverData, setServerData] = useState(initState)
     const [loading, setLoading] = useState(false)
+    const [refresh, setRefresh] = useState(false)
 
     const navigate = useNavigate()
 
-    const moveListPage = (page:number) => {
+    const moveListPage = (pageParam:number) => {
 
-        navigate(`/todo/list?page=${page}&size=${size}`)
+        //주소창의 page값
+        console.log(page , pageParam)
+        //동일한 페이지를 호출한다면
+        if(page === pageParam) {
+            setRefresh(!refresh)
+        }
+
+        navigate(`/todo/list?page=${pageParam}&size=${size}`)
 
     }
 
@@ -47,7 +55,7 @@ function ListComponent() {
                 setLoading(false)
             })
         }, 1000)
-    },[page,size])
+    },[page,size, refresh])
 
     return (
         <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
