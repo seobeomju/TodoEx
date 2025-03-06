@@ -1,6 +1,7 @@
 import {useLocation, useNavigate, useParams} from "react-router";
 import { useEffect, useState } from "react";
 import { getTodo } from "../../api/todoApi.tsx";
+import LoadingComponent from "../common/loadingComponent.tsx";
 
 const initState: Todo = {
     tno: 0,
@@ -15,6 +16,7 @@ function ReadComponent() {
     const [todo, setTodo] = useState<Todo>(initState);
     const location = useLocation()
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
 
     const moveToList = () => {
         navigate(`/todo/list${location.search}`)
@@ -35,18 +37,25 @@ function ReadComponent() {
 
         const tno = Number(tnoStr);
 
-        console.log("tno:" , tno)
+        setLoading(true)
 
-        getTodo(tno)
-            .then(data => {
-                console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-                setTodo(data)
-            })
-            .catch(error => console.error("Error fetching todo:", error));
+        setTimeout(() => {
+
+            getTodo(tno)
+                .then(data => {
+                    setTodo(data)
+                    setLoading(false)
+                })
+                .catch(error => console.error("Error fetching todo:", error));
+        }, 1000)
+
     }, [tnoStr]);
 
     return (
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
+
+            <LoadingComponent isLoading={loading}/>
+
             <h2 className="text-xl font-semibold text-gray-800 mb-4">📌 Todo Read Component</h2>
 
             <div className="space-y-3">
