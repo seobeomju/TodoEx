@@ -37,8 +37,10 @@ function ListComponent() {
         //주소창의 page값
         console.log(page , pageParam)
         //동일한 페이지를 호출한다면
-        if(page === pageParam) {
-            setRefresh(!refresh)
+        if (page === pageParam) {
+            setTimeout(() => {
+                setRefresh(prev => !prev);
+            }, 3000); // 3초 후 변경
         }
 
         navigate(`/todo/list?page=${pageParam}&size=${size}`)
@@ -49,12 +51,12 @@ function ListComponent() {
 
         setLoading(true)
 
-        setTimeout(() => {
+        //setTimeout(() => {
             getTodoList(page,size).then(data => {
                 setServerData(data)
                 setLoading(false)
             })
-        }, 1000)
+        //}, 1000)
     },[page,size, refresh])
 
     return (
