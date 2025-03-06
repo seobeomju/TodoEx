@@ -4,6 +4,8 @@ import {getTodoList} from "../../api/todoApi.tsx";
 import LoadingComponent from "../common/loadingComponent.tsx";
 import PageComponent from "../common/pageComponent.tsx";
 
+
+
 const initState:PageResponse<Todo> = {
     dtoList: [],
     total:0,
@@ -38,9 +40,7 @@ function ListComponent() {
         console.log(page , pageParam)
         //동일한 페이지를 호출한다면
         if (page === pageParam) {
-            setTimeout(() => {
-                setRefresh(prev => !prev);
-            }, 3000); // 3초 후 변경
+            setRefresh(prev => !prev);
         }
 
         navigate(`/todo/list?page=${pageParam}&size=${size}`)
