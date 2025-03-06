@@ -1,6 +1,6 @@
 import useCustomMove from "../../hooks/useCustomMove.tsx";
 import {useEffect, useState} from "react";
-import { getTodo} from "../../api/todoApi.tsx";
+import {deleteTodo, getTodo, updateTodo} from "../../api/todoApi.tsx";
 import LoadingComponent from "../common/loadingComponent.tsx";
 import ResultComponent from "../common/resultComponent.tsx";
 
@@ -32,13 +32,30 @@ function ModifyComponent() {
     const [oper, setOper] = useState('M')
 
     const handleClickDelete = ()=> {
-        setOper('D')
-        setResult(true)
+
+        setLoading(true)
+
+        setTimeout(() => {
+
+            deleteTodo(tno).then(() => {
+                setLoading(false)
+                setOper('D')
+                setResult(true)
+            })
+        },2000)
     }
 
     const handleClickModify = () => {
-        setOper('M')
-        setResult(true)
+
+        setLoading(true)
+
+        setTimeout(() => {
+            updateTodo(tno, todo.title).then(() => {
+                setLoading(false)
+                setOper('M')
+                setResult(true)
+            })
+        },2000)
     }
 
     const closeFn = () =>  {
