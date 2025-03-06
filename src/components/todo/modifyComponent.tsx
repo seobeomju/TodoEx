@@ -1,6 +1,6 @@
 import useCustomMove from "../../hooks/useCustomMove.tsx";
 import {useEffect, useState} from "react";
-import {getTodo} from "../../api/todoApi.tsx";
+import {deleteTodo, getTodo} from "../../api/todoApi.tsx";
 import LoadingComponent from "../common/loadingComponent.tsx";
 
 const initState:Todo = {
@@ -27,6 +27,18 @@ function ModifyComponent() {
         })
 
     }, [tno]);
+
+    const handleClickDelete = ()=> {
+
+        setLoading(true)
+        deleteTodo(tno).then(() => {
+
+            setLoading(false)
+            moveToList()
+
+        })
+
+    }
 
 
     return (
@@ -83,6 +95,7 @@ function ModifyComponent() {
                     </button>
                     <button
                         className="px-4 py-2 bg-red-500 text-white rounded"
+                        onClick={handleClickDelete}
                     >Delete
                     </button>
                 </div>
