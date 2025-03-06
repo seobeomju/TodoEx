@@ -1,6 +1,6 @@
 import useCustomMove from "../../hooks/useCustomMove.tsx";
 import {useEffect, useState} from "react";
-import {deleteTodo, getTodo} from "../../api/todoApi.tsx";
+import { getTodo} from "../../api/todoApi.tsx";
 import LoadingComponent from "../common/loadingComponent.tsx";
 import ResultComponent from "../common/resultComponent.tsx";
 
@@ -30,21 +30,16 @@ function ModifyComponent() {
     }, [tno]);
 
     const handleClickDelete = ()=> {
-
-        deleteTodo(tno).then(() => {
-
-            setResult(true)
-            //moveToList()
-
-        })
-
+        setResult(true)
     }
 
 
     return (
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
 
-            <ResultComponent isLoading={result} msg={'Deleted'} closeFn={() => {}}></ResultComponent>
+            <ResultComponent show={result} msg={'Deleted'} closeFn={() => {
+                    setResult(false)
+            }}></ResultComponent>
 
             <LoadingComponent isLoading={loading}/>
 

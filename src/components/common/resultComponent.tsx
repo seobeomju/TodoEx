@@ -1,15 +1,12 @@
-import {useState} from "react";
-
 
 interface ResultComponentProps {
-    isLoading:boolean,
+    show:boolean,
     msg:string,
     closeFn: () => void
 }
 
-export default function ResultComponent({ isLoading , msg, closeFn } :ResultComponentProps ) {
+export default function ResultComponent({ show , msg, closeFn } :ResultComponentProps ) {
 
-    const [show, setShow] = useState(isLoading)
 
     if (!show) return null;
 
@@ -17,7 +14,7 @@ export default function ResultComponent({ isLoading , msg, closeFn } :ResultComp
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
              style={{ backgroundColor: 'rgba(169, 169, 169, 0.7)' }}
              onClick={() => {
-                 setShow(false)
+
                  closeFn()
              }}
         >
