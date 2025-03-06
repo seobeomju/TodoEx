@@ -45,7 +45,12 @@ function ModifyComponent() {
 
                 <div>
                     <label className="block text-gray-600 text-sm font-medium">제목</label>
-                    <input type="text" value={todo.title}
+                    <input type="text"
+                           value={todo.title}
+                           onChange={(e) => {
+                               todo.title = e.target.value
+                               setTodo({...todo})
+                           }}
                            className="w-full p-2 border rounded bg-gray-100 text-gray-700"/>
                 </div>
 
