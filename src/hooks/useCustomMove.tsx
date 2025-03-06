@@ -1,4 +1,4 @@
-import {useNavigate, useSearchParams} from "react-router";
+import {useLocation, useNavigate, useParams, useSearchParams} from "react-router";
 import {useState} from "react";
 
 
@@ -17,6 +17,14 @@ export default function useCustomMove () {
     const [refresh, setRefresh] = useState(false)
 
     const navigate = useNavigate()
+    const location = useLocation()
+
+
+    const params = useParams(); // useParams에서 가져옴
+
+    const tnoStr = params.tno
+
+    const tno =  Number(tnoStr)
 
     const moveListPage = (pageParam:number) => {
         //주소창의 page값
@@ -33,8 +41,19 @@ export default function useCustomMove () {
         navigate(`/todo/read/${tno}?page=${page}&size=${size}`)
     }
 
+    const moveToList = () => {
+        navigate(`/todo/list${location.search}`)
+    }
 
-    return {loading,setLoading, refresh, page,size, moveListPage, moveRead}
+    const moveToModify = (tno:number|unknown) => {
+
+        // /todo/modify/33?page=3&size=10
+
+        navigate(`/todo/modify/${tno}${location.search}`)
+    }
+
+
+    return {tno, loading,setLoading, refresh, page,size, moveListPage, moveRead, moveToList,moveToModify}
 
 
 

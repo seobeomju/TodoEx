@@ -1,7 +1,7 @@
-import {useLocation, useNavigate, useParams} from "react-router";
 import { useEffect, useState } from "react";
 import { getTodo } from "../../api/todoApi.tsx";
 import LoadingComponent from "../common/loadingComponent.tsx";
+import useCustomMove from "../../hooks/useCustomMove.tsx";
 
 const initState: Todo = {
     tno: 0,
@@ -14,33 +14,12 @@ const initState: Todo = {
 function ReadComponent() {
 
     const [todo, setTodo] = useState<Todo>(initState);
-    const location = useLocation()
-    const navigate = useNavigate()
-    const [loading, setLoading] = useState(false)
 
-    const moveToList = () => {
-        navigate(`/todo/list${location.search}`)
-    }
-
-    const moveToModify = () => {
-
-        // /todo/modify/33?page=3&size=10
-
-        navigate(`/todo/modify/${todo.tno}${location.search}`)
-    }
-
-    const params = useParams(); // useParams에서 가져옴
-
-    const tnoStr = params.tno
+    const {tno, loading, setLoading, moveToModify, moveToList} = useCustomMove()
 
     useEffect(() => {
-
-        const tno = Number(tnoStr);
-
         setLoading(true)
-
         setTimeout(() => {
-
             getTodo(tno)
                 .then(data => {
                     setTodo(data)
@@ -49,7 +28,7 @@ function ReadComponent() {
                 .catch(error => console.error("Error fetching todo:", error));
         }, 1000)
 
-    }, [tnoStr]);
+    }, [tno]);
 
     return (
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
@@ -95,7 +74,7 @@ function ReadComponent() {
                     >List</button>
                     <button
                         className="px-4 py-2 bg-green-500 text-white rounded"
-                        onClick={moveToModify}
+                        onClick={() => moveToModify(todo.tno)}
                     >Modify</button>
                 </div>
             </div>
