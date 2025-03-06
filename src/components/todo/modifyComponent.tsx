@@ -32,34 +32,31 @@ function ModifyComponent() {
     const [oper, setOper] = useState('M')
 
     const handleClickDelete = ()=> {
-
         setOper('D')
         setResult(true)
-
-
     }
 
     const handleClickModify = () => {
-
         setOper('M')
         setResult(true)
     }
 
-    const msgStr = oper === 'M' ? 'Modifed...': 'Deleted....'
+    const closeFn = () =>  {
 
+        setResult(false)
+
+        if(oper === 'M') {
+            moveRead(tno)
+        }else {
+            moveToList()
+        }
+
+    }
 
     return (
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
 
-            <ResultComponent show={result} msg={msgStr} closeFn={() => {
-                    setResult(false)
-                    if(oper === 'M') {
-                        moveRead(tno)
-                    }else {
-                        moveToList()
-                    }
-
-            }}></ResultComponent>
+            <ResultComponent show={result} msg={oper} closeFn={closeFn}></ResultComponent>
 
 
 
