@@ -44,6 +44,11 @@ function ListComponent() {
         navigate(`/todo/list?page=${pageParam}&size=${size}`)
     }
 
+    const moveRead  = (tno:number|string) => {
+
+        navigate(`/todo/read/${tno}`)
+    }
+
     useEffect(() => {
 
         setLoading(true)
@@ -70,6 +75,7 @@ function ListComponent() {
                     <li
                      key={todo.tno}
                      className="flex justify-between items-center p-4 border-b last:border-none hover:bg-gray-100"
+                     onClick={() => moveRead(todo.tno || 0)}
                     >
                         <span className="font-medium text-gray-900">{todo.tno}</span>
                         <span className="text-gray-600">{todo.title}</span>
