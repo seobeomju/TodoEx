@@ -14,15 +14,15 @@ function ReadComponent() {
 
     const [todo, setTodo] = useState<Todo>(initState)
 
-    const {tno} = useParams()
+    const {tnoStr} = useParams()//문자열
 
     useEffect(() => {
 
-        getTodo(tno).then(data => {
+        getTodo(Number(tnoStr)).then(data => {
             setTodo(data)
         })
 
-    },[tno])
+    },[tnoStr])
 
     return (
         <div>
