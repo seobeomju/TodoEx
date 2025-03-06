@@ -2,6 +2,7 @@ import useCustomMove from "../../hooks/useCustomMove.tsx";
 import {useEffect, useState} from "react";
 import {deleteTodo, getTodo} from "../../api/todoApi.tsx";
 import LoadingComponent from "../common/loadingComponent.tsx";
+import ResultComponent from "../common/resultComponent.tsx";
 
 const initState:Todo = {
     tno:0,
@@ -14,7 +15,7 @@ const initState:Todo = {
 function ModifyComponent() {
 
     //현재 tno 번호
-    const {tno, moveToList, loading,setLoading}  = useCustomMove()
+    const {tno, moveToList, loading,setLoading, result, setResult}  = useCustomMove()
 
     const [todo, setTodo] = useState<Todo>(initState)
 
@@ -30,11 +31,10 @@ function ModifyComponent() {
 
     const handleClickDelete = ()=> {
 
-        setLoading(true)
         deleteTodo(tno).then(() => {
 
-            setLoading(false)
-            moveToList()
+            setResult(true)
+            //moveToList()
 
         })
 
@@ -43,6 +43,8 @@ function ModifyComponent() {
 
     return (
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
+
+            <ResultComponent isLoading={result} msg={'Deleted'} closeFn={() => {}}></ResultComponent>
 
             <LoadingComponent isLoading={loading}/>
 
