@@ -17,7 +17,7 @@ const initState:PageResponse<Todo> = {
 
 function ListComponent() {
 
-    const{page, size,movePage,refresh} = useCustomParam()
+    const{page, size,movePage,refresh, moveRead} = useCustomParam()
 
     const [serverData, setServerData]= useState<PageResponse<Todo>>(initState)
     useEffect(()=>{
@@ -37,11 +37,10 @@ function ListComponent() {
                 <ul className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden m-2">
 
                     {serverData.dtoList.map(todo =>
-                        <li key={todo.tno}>
+                        <li key={todo.tno} onClick={()=>moveRead(todo.tno || 0)}>
                             {todo.tno} - {todo.title}
                         </li>
                     )}
-
 
                 </ul>
             </div>
