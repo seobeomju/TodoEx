@@ -1,6 +1,33 @@
+import {ChangeEvent, useState} from "react";
+import {postTodo} from "../../api/todoApi.tsx";
+import {useNavigate} from "react-router";
+
+const initState: TodoAdd = {
+    title: '',
+    writer: ''
+}
+
 
 function AddComponent() {
 
+    const [todoAdd, setTodoAdd] = useState<TodoAdd>(initState)
+
+    const navigate = useNavigate()
+
+    const changeAdd = (e:ChangeEvent<HTMLInputElement>):void =>{
+        const {name,value} = e.target
+        //동적으로 처리
+        setTodoAdd(prevState => ({...prevState,[name]:value}))
+    }
+
+    const clickAdd = () =>{
+
+        postTodo(todoAdd).then(result=>{
+            console.log("todo add result: " + result)
+            navigate('/todo/list')
+        })
+
+    }
 
     return (
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
@@ -13,6 +40,9 @@ function AddComponent() {
                     <label className="block text-gray-600 text-sm font-medium">제목</label>
                     <input type="text"
                            className="w-full p-2 border rounded bg-gray-100 text-gray-700"
+                           name='title'
+                           value={todoAdd.title}
+                           onChange={changeAdd}
                     />
                 </div>
 
@@ -20,13 +50,16 @@ function AddComponent() {
                     <label className="block text-gray-600 text-sm font-medium">작성자</label>
                     <input type="text"
                            className="w-full p-2 border rounded bg-gray-100 text-gray-700"
-
+                           name='writer'
+                           value={todoAdd.writer}
+                           onChange={changeAdd}
                     />
                 </div>
 
                 <div className="flex justify-end space-x-4">
                     <button
                         className="px-4 py-2 bg-green-500 text-white rounded"
+                        onClick={clickAdd}
                     >Add</button>
                 </div>
             </div>
