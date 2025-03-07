@@ -17,14 +17,14 @@ const initState:PageResponse<Todo> = {
 
 function ListComponent() {
 
-    const{page, size,movePage} = useCustomParam()
+    const{page, size,movePage,refresh} = useCustomParam()
 
     const [serverData, setServerData]= useState<PageResponse<Todo>>(initState)
     useEffect(()=>{
         getTodoList(page, size).then(data => {
             setServerData(data)
         });
-    },[page,size])
+    },[page,size,refresh])
 
     return (
         <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">

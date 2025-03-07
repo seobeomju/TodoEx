@@ -28,9 +28,15 @@ export default function useCustomParam(){
     const [refresh, setRefresh] = useState(false)
     const movePage = (pageNum:number):void=>{
 
+        //동일 페이지 클릭
+        if(pageNum === page){
+            setRefresh(!refresh)
+            return
+        }
+
         navigate(`/todo/list?page=${pageNum}&size=${size}`)
     }
 
-    return {page,size,refresh,setRefresh, movePage}
+    return {page,size,refresh, movePage}
 
 }
