@@ -36,9 +36,13 @@ export default function useCustomParam(){
         //기본은 read 이동, path 있을 시 path로 이동
         const movePath = !path ? 'read':path
 
-        //todo/read/21?page=1&size=10
+        //todo/path/21?page=1&size=10
         navigate(`/todo/${movePath}/${tnoNumber}${queryString}`)
 
+    }
+
+    const moveList=()=>{
+        navigate(`/todo/list${queryString}`)
     }
 
     const movePage = (pageNum:number):void=>{
@@ -52,6 +56,6 @@ export default function useCustomParam(){
         navigate(`/todo/list?page=${pageNum}&size=${size}`)
     }
 
-    return {page,size,refresh, movePage, moveRead}
+    return {page,size,refresh, movePage, moveRead, moveList}
 
 }
