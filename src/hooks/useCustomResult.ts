@@ -16,12 +16,15 @@ export default function useCustomResult(){
     }
 
     const closeAddAction=()=>{
-
             setResult(false)
             moveList()
 
     }
 
-    return {result,msg,openModal,closeAddAction}
+    const closeAction=(fn:()=>void)=>{
+            setResult(false)
+            fn()
+    }
 
+    return {result,msg,openModal,closeAddAction,closeAction}
 }

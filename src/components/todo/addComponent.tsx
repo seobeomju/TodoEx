@@ -2,6 +2,7 @@ import {ChangeEvent, useState} from "react";
  import {postTodo} from "../../api/todoApi.tsx";
 import ResultModal from "../common/resultModal.tsx";
 import useCustomResult from "../../hooks/useCustomResult.ts";
+import useCustomParam from "../../hooks/useCustomParam.tsx";
 
 
 const initState: TodoAdd = {
@@ -14,7 +15,8 @@ function AddComponent() {
 
     const [todoAdd, setTodoAdd] = useState<TodoAdd>(initState)
 
-    const {result,closeAddAction,openModal,msg}=useCustomResult()
+    const {result,closeAction,openModal,msg}=useCustomResult()
+    const {moveList} = useCustomParam()
 
     const changeAdd = (e:ChangeEvent<HTMLInputElement>):void =>{
         const {name,value} = e.target
@@ -28,11 +30,17 @@ function AddComponent() {
         })
     }
 
+    const closeAll = () => {
+        closeAction(()=> {
+            moveList()
+        })
+    }
+
 
     return (
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
 
-            <ResultModal show={result} closeResultModal={closeAddAction} msg={msg}></ResultModal>
+            <ResultModal show={result} closeResultModal={closeAll} msg={msg}></ResultModal>
 
             <h2 className="text-xl font-semibold text-gray-800 mb-4">📌 Todo Add Component</h2>
 

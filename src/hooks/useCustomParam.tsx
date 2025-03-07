@@ -13,8 +13,6 @@ function getNumber(str : string|null, defaultValue:number):number {
     return Number(str)
 }
 
-
-
 export default function useCustomParam(){
 
     //const params = useParams()
