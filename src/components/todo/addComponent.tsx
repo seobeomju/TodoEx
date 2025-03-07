@@ -14,7 +14,7 @@ function AddComponent() {
 
     const [todoAdd, setTodoAdd] = useState<TodoAdd>(initState)
 
-    const {result,closeAddAction,setResult,msg,setMsg}=useCustomResult()
+    const {result,closeAddAction,openModal,msg}=useCustomResult()
 
     const changeAdd = (e:ChangeEvent<HTMLInputElement>):void =>{
         const {name,value} = e.target
@@ -24,9 +24,7 @@ function AddComponent() {
 
     const clickAdd = () =>{
         postTodo(todoAdd).then(result=>{
-            console.log(result)
-            setMsg(`New Todo ${result} Added`)
-            setResult(true)
+            openModal(`New Todo ${result} Added`)
         })
     }
 

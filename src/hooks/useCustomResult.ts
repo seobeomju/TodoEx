@@ -10,6 +10,11 @@ export default function useCustomResult(){
 
     const {moveList} = useCustomParam()
 
+    const openModal = (str:string)=>{
+        setResult(true)
+        setMsg(str)
+    }
+
     const closeAddAction=()=>{
 
             setResult(false)
@@ -17,6 +22,6 @@ export default function useCustomResult(){
 
     }
 
-    return {result,msg,setMsg,closeAddAction,setResult}
+    return {result,msg,openModal,closeAddAction}
 
 }
