@@ -1,6 +1,6 @@
 import useCustomRead from "../../hooks/useCustomRead.tsx";
 import {ChangeEvent} from "react";
-import {deleteTodo} from "../../api/todoApi.tsx";
+import {deleteTodo, updateTodo} from "../../api/todoApi.tsx";
 
 function ModifyComponent() {
 
@@ -14,6 +14,12 @@ function ModifyComponent() {
         deleteTodo(todo.tno).then(result=>{
             console.log("delete "+ result)
             moveList()
+        })
+    }
+    const clickModify = () =>{
+        updateTodo(todo.tno,todo.title).then(result => {
+            console.log("delete "+ result)
+            moveRead(todo.tno)
         })
     }
 
@@ -63,6 +69,10 @@ function ModifyComponent() {
                             className="px-4 py-2 bg-red-500 text-white rounded"
                             onClick={clickDelete}
                         >Delete</button>
+                        <button
+                            className="px-4 py-2 bg-emerald-500 text-white rounded"
+                            onClick={clickModify}
+                        >Modify</button>
                         <button
                             className="px-4 py-2 bg-green-500 text-white rounded"
                             onClick={()=> moveRead(todo.tno)}
