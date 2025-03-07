@@ -1,4 +1,5 @@
 import { useSearchParams} from "react-router";
+import {useState} from "react";
 
 function getNumber(str : string|null, defaultValue:number):number {
     if(!str) {
@@ -21,6 +22,10 @@ export default function useCustomParam(){
 
     const page:number = getNumber(searchParams.get("page"),1)
 
-    return {page}
+    const size:number = getNumber(searchParams.get("size"),10)
+
+    const [refresh, setRefresh] = useState(false)
+
+    return {page,size,refresh,setRefresh}
 
 }
