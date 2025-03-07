@@ -1,27 +1,9 @@
-import {useEffect, useState} from "react";
-import { useParams} from "react-router";
-import {getTodo} from "../../api/todoApi.tsx";
-import useCustomParam from "../../hooks/useCustomParam.tsx";
+import useCustomRead from "../../hooks/useCustomRead.tsx";
 
-//비동기 처리를 위해 임시로 만듬
-const initState: todoDTO = {
-    tno: 0,
-    title: '',
-    writer: '',
-    regDate: '',
-    modDate: ''
-};
 
 function ReadComponent() {
 
-    const {tno} = useParams() //useParams()의 값은 모두 문자열
-    const {moveRead,moveList} = useCustomParam()
-
-    const [todo, setTodo] = useState(initState)
-
-    useEffect(()=>{
-        getTodo(Number(tno)).then(data=>setTodo(data))
-    },[tno])
+    const {todo, moveList, moveRead} = useCustomRead()
 
     return (
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
