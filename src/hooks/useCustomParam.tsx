@@ -31,6 +31,8 @@ export default function useCustomParam(){
 
     const [refresh, setRefresh] = useState(false)
 
+    const [loading, setLoading] = useState(false)
+
     const moveRead = (tnoNumber:number, path ?: string)=>{
 
         //기본은 read 이동, path 있을 시 path로 이동
@@ -56,6 +58,6 @@ export default function useCustomParam(){
         navigate(`/todo/list?page=${pageNum}&size=${size}`)
     }
 
-    return {page,size,refresh, movePage, moveRead, moveList}
+    return {page,size,refresh,loading,setLoading, movePage, moveRead, moveList}
 
 }
