@@ -1,14 +1,15 @@
 import useCustomRead from "../../hooks/useCustomRead.tsx";
+import LoadingComponent from "../common/loadingComponent.tsx";
 
 
 function ReadComponent() {
 
-    const {todo, moveList, moveRead} = useCustomRead()
+    const {todo, moveList,loading, moveRead} = useCustomRead()
 
     return (
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
 
-
+            <LoadingComponent isLoading={loading}/>
 
             <h2 className="text-xl font-semibold text-gray-800 mb-4">📌 Todo Read Component</h2>
 

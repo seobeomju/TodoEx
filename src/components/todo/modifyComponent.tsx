@@ -1,10 +1,11 @@
 import useCustomRead from "../../hooks/useCustomRead.tsx";
 import {ChangeEvent} from "react";
 import {deleteTodo, updateTodo} from "../../api/todoApi.tsx";
+import LoadingComponent from "../common/loadingComponent.tsx";
 
 function ModifyComponent() {
 
-    const {todo,setTodo, moveList, moveRead} = useCustomRead()
+    const {todo,setTodo, moveList, moveRead,loading} = useCustomRead()
 
     const changeTitle = (e:ChangeEvent<HTMLInputElement>):void=>{
         const value = e.target.value
@@ -26,6 +27,7 @@ function ModifyComponent() {
     return (
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
 
+            <LoadingComponent isLoading={loading}/>
 
             <h2 className="text-xl font-semibold text-gray-800 mb-4">📌 Todo Modify Component</h2>
 

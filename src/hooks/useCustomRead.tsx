@@ -15,10 +15,16 @@ export default function useCustomRead(){
     const {tno} = useParams() //useParams()의 값은 모두 문자열
     const {moveRead,moveList} = useCustomParam()
 
+    const [loading, setLoading] = useState(false)
+
     const [todo, setTodo] = useState(initState)
     useEffect(()=>{
-        getTodo(Number(tno)).then(data=>setTodo(data))
+        setLoading(true)
+        getTodo(Number(tno)).then(data=>{
+            setTodo(data)
+            setLoading(false)
+        })
     },[tno])
 
-    return {tno, moveRead, moveList ,todo,setTodo}
+    return {tno, moveRead, moveList ,todo,setTodo,loading}
 }
