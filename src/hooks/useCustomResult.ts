@@ -1,16 +1,22 @@
 import {useState} from "react";
-import {useNavigate} from "react-router";
+import useCustomParam from "./useCustomParam.tsx";
 
 
 export default function useCustomResult(){
 
     const [result, setResult] = useState(false)
-    const navigate = useNavigate()
-    const closeResultModal=()=>{
+    const [msg, setMsg] = useState('')
 
-        setResult(false)
-        navigate(`/todo/list`)
+
+    const {moveList} = useCustomParam()
+
+    const closeAddAction=()=>{
+
+            setResult(false)
+            moveList()
+
     }
-    return {result,closeResultModal,setResult}
+
+    return {result,msg,setMsg,closeAddAction,setResult}
 
 }
