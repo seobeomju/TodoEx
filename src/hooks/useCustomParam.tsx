@@ -31,10 +31,13 @@ export default function useCustomParam(){
 
     const [refresh, setRefresh] = useState(false)
 
-    const moveRead = (tnoNumber:number)=>{
+    const moveRead = (tnoNumber:number, path ?: string)=>{
+
+        //기본은 read 이동, path 있을 시 path로 이동
+        const movePath = !path ? 'read':path
 
         //todo/read/21?page=1&size=10
-        navigate(`/todo/read/${tnoNumber}${queryString}`)
+        navigate(`/todo/${movePath}/${tnoNumber}${queryString}`)
 
     }
 

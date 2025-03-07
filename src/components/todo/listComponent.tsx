@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {getTodoList} from "../../api/todoApi.tsx";
 import PageComponent from "../common/pageComponent.tsx";
 
-const initState:PageResponse<Todo> = {
+const initState:PageResponse<todoDTO> = {
     dtoList: [],
     total:0,
     size: 0,
@@ -19,7 +19,7 @@ function ListComponent() {
 
     const{page, size,movePage,refresh, moveRead} = useCustomParam()
 
-    const [serverData, setServerData]= useState<PageResponse<Todo>>(initState)
+    const [serverData, setServerData]= useState<PageResponse<todoDTO>>(initState)
     useEffect(()=>{
         getTodoList(page, size).then(data => {
             setServerData(data)
@@ -37,7 +37,7 @@ function ListComponent() {
                 <ul className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden m-2">
 
                     {serverData.dtoList.map(todo =>
-                        <li key={todo.tno} onClick={()=>moveRead(todo.tno || 0)}>
+                        <li key={todo.tno} onClick={()=>moveRead(todo.tno)}>
                             {todo.tno} - {todo.title}
                         </li>
                     )}
