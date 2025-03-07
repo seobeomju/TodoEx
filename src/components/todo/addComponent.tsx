@@ -1,6 +1,7 @@
 import {ChangeEvent, useState} from "react";
-import {postTodo} from "../../api/todoApi.tsx";
-import {useNavigate} from "react-router";
+// import {postTodo} from "../../api/todoApi.tsx";
+import ResultModal from "../common/resultModal.tsx";
+import useCustomResult from "../../hooks/useCustomResult.ts";
 
 const initState: TodoAdd = {
     title: '',
@@ -12,7 +13,7 @@ function AddComponent() {
 
     const [todoAdd, setTodoAdd] = useState<TodoAdd>(initState)
 
-    const navigate = useNavigate()
+    const {result,closeResultModal,setResult}=useCustomResult()
 
     const changeAdd = (e:ChangeEvent<HTMLInputElement>):void =>{
         const {name,value} = e.target
@@ -22,15 +23,13 @@ function AddComponent() {
 
     const clickAdd = () =>{
 
-        postTodo(todoAdd).then(result=>{
-            console.log("todo add result: " + result)
-            navigate('/todo/list')
-        })
-
+        setResult(true)
     }
 
     return (
         <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
+
+            <ResultModal show={result} closeResultModal={closeResultModal}></ResultModal>
 
             <h2 className="text-xl font-semibold text-gray-800 mb-4">📌 Todo Add Component</h2>
 
