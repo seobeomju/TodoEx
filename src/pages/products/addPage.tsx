@@ -1,4 +1,5 @@
-import AddComponent from "../../components/todo/addComponent.tsx";
+import AddComponent from "../../components/products/addComponent.tsx";
+
 
 function AddPage() {
     return (

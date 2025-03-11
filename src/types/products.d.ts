@@ -9,3 +9,9 @@ interface ProductListDTO {
     uploadFileNames: string[]
 
 }
+
+interface ProductAdd{
+    pname: string,
+    pdesc: string,
+    price: number,
+}
