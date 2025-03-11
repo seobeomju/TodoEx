@@ -1,7 +1,8 @@
 import {useParams} from "react-router";
 import {useActionState, useEffect, useState} from "react";
-import {deleteProduct, getProduct} from "../../api/productsApi.tsx";
+import {deleteProduct, getProduct, putProduct} from "../../api/productsApi.tsx";
 import LoadingComponent from "../common/loadingComponent.tsx";
+
 
 const initState:ProductListDTO = {
     pno: 0,
@@ -12,13 +13,16 @@ const initState:ProductListDTO = {
     uploadFileNames: [],
     files: []
 }
-
-const deleteAction = async (state:unknown,formData:FormData)=> {
+const deleteAction = async (state:unknown, formData:FormData)=> {
     const pno = formData.get("pno") as string
-
     const result = await deleteProduct(pno)
-
     console.log(state, result)
+    return result
+}
+
+const modifyAction = async (state:unknown,formData: FormData)=>{
+    const result = await putProduct(formData)
+    console.log(state)
     return result
 }
 
@@ -26,7 +30,9 @@ function ModifyComponent() {
 
     const {pno} = useParams()
 
-    const [delState, delAction, delPending] = useActionState(deleteAction,{RESULT:''})
+    const [delState, delAction, delPending ] = useActionState(deleteAction, {RESULT:''})
+
+    const [modState, modAction, modPending ] = useActionState(modifyAction, {RESULT:''})
 
     const [product, setProduct] = useState<ProductListDTO>(initState)
 
@@ -38,20 +44,25 @@ function ModifyComponent() {
 
     }, [pno]);
 
-    const hideImage=(fileName: string)=>{
+    const hideImage = (fileName: string) => {
+
         const oldImages = product.uploadFileNames
 
-        const renewalImages = oldImages.filter(img => img !==fileName)
+        const renewalImages = oldImages.filter(img => img !== fileName)
 
-        setProduct(prevState => ({...prevState,uploadFileNames:renewalImages}))
+        setProduct(prevState => ({...prevState, uploadFileNames:renewalImages}))
 
     }
 
+
     return (
         <div>
+
+            <LoadingComponent isLoading={delPending || modPending}/>
+            {delState.RESULT && <div className={'bg-red-400 text-6xl'}>DELETED</div>}
+            {modState.RESULT && <div className={'bg-red-400 text-6xl'}>MODIFY</div>}
+
             <form>
-                <LoadingComponent isLoading={delPending}/>
-                {delState.RESULT && <div className={"bg-red-400 text-4xl"}>DELETED</div>}
                 <div>
                     Product Num
                     <input type={'text'} name={'pno'}
@@ -70,43 +81,52 @@ function ModifyComponent() {
                 </div>
                 <div>
                     Product Price
-                    <input type={'text'} name={'price'}
+                    <input type={'number'} name={'price'}
                            className={'m-2 border-1 p-2'}
                            readOnly={true}
                            value={product.price}
                     />
                 </div>
                 <div>
-                    Product file
+                    Product Files
                     <input type={'file'} name={'files'}
+                           multiple={true}
                            className={'m-2 border-1 p-2'}
-                           readOnly={true}
                     />
+                    {product.uploadFileNames.map(fileName =>
+                            <input type={'hidden'} key={fileName} name={'uploadFileNames'}
+                                   value={fileName} readOnly={true}
+                            />)}
+
                 </div>
                 <div>
-
                     <button
                         className="px-4 py-2 bg-green-500 text-white rounded"
                         formAction={delAction}
                     >DELETE</button>
+                    <button
+                        className="px-4 py-2 bg-green-500 text-white rounded"
+                        formAction={modAction}
+                    >MODIFY</button>
                 </div>
             </form>
-                <ul>
-                    {product.uploadFileNames.map(fileName => {
 
-                        return (
-                            <li key={fileName}>
-                                <div>
+            <ul>
+                {product.uploadFileNames.map(fileName => {
+
+                    return (
+                        <li key={fileName}>
+                            <div>
                                 <img src={`http://122.34.51.94:8090/api/products/view/s_${fileName}`}/>
                                 <button className={'border-1 m-2 p-2'}
-                                        onClick={()=>hideImage(fileName)}
-                                >DEL</button>
-                                </div>
-                            </li>
-                        )
+                                        onClick={() => hideImage(fileName)}>DEL</button>
+                            </div>
+                        </li>
+                    )
+                })}
+            </ul>
 
-                    })}
-                </ul>
+
 
         </div>
     );
