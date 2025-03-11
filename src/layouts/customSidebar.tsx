@@ -31,6 +31,11 @@ const CustomSidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => (
                         Todo
                     </NavLink>
                 </li>
+                <li className="py-2">
+                    <NavLink to="/todo" className={({ isActive }) => (isActive ? "active-link" : "")}>
+                        Products
+                    </NavLink>
+                </li>
             </ul>
         </nav>
     </aside>
