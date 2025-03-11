@@ -11,3 +11,17 @@ interface PageResponse<T> {
     total: number
 }
 
+
+interface PageResponse2<T> {
+    dtoList: T[],
+    pageNumList:number[],
+    next: boolean,
+    prev: boolean,
+    prevPage: number,
+    nextPage: number,
+    current: number,
+    totalPage: number
+}
+
+
+
