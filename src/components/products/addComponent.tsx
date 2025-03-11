@@ -1,4 +1,5 @@
 import {ChangeEvent, useRef, useState} from "react";
+import {postProduct} from "../../api/productsApi.tsx";
 
 const initState: ProductAdd = {
     pname:'',
@@ -27,7 +28,17 @@ function AddComponent() {
             return
         }
         const files = uploadRef.current.files
-        console.log(files)
+
+        const formData = new FormData()
+
+        for(let i =0 ; i<files.length;i++){
+            formData.append("files", files[i])
+        }
+        formData.append("pname",product.pname)
+        formData.append("pdesc",product.pdesc)
+        formData.append("price",String(product.price))
+
+        postProduct(formData)
     }
 
     return (
