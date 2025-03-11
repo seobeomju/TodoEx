@@ -7,6 +7,8 @@ const ProductsList = lazy(() =>
     import('../pages/products/listPage.tsx'))
 const ProductsRead = lazy(() =>
     import('../pages/products/readPage.tsx'))
+const ProductsAdd = lazy(() =>
+    import('../pages/products/addPage.tsx'))
 
 
 export default function productsRouter() {
@@ -18,6 +20,8 @@ export default function productsRouter() {
                    element={<Suspense fallback={Loading}><ProductsList/></Suspense>}></Route>
             <Route path='read/:pno'
                    element={<Suspense fallback={Loading}><ProductsRead/></Suspense>}></Route>
+            <Route path='add'
+                   element={<Suspense fallback={Loading}><ProductsAdd/></Suspense>}></Route>
         </Route>
     )
 }
