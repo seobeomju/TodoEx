@@ -2,6 +2,12 @@ import axios from "axios";
 
 const HOST:string = import.meta.env.VITE_API_SERVER
 
+export async function deleteProduct(pno:number | string){
+
+    const res = await axios.delete(`${HOST}/products/${pno}`)
+    return res.data
+}
+
 export async function postProduct(formData:FormData) {
 
     const header = {headers: {"Content-Type": "multipart/form-data"}}
