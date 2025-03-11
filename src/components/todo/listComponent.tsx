@@ -1,8 +1,5 @@
-import useCustomParam from "../../hooks/useCustomParam.tsx";
 import {useEffect, useState} from "react";
-import {getTodoList} from "../../api/todoApi.tsx";
-import PageComponent from "../common/pageComponent.tsx";
-import LoadingComponent from "../common/loadingComponent.tsx";
+
 
 const initState:PageResponse<todoDTO> = {
     dtoList: [],
@@ -15,19 +12,29 @@ const initState:PageResponse<todoDTO> = {
     start: 0
 }
 
+import useCustomParam from "../../hooks/useCustomParam.tsx";
+import {getTodoList} from "../../api/todoApi.tsx";
+
+import LoadingComponent from "../common/loadingComponent.tsx";
 
 function ListComponent() {
 
-    const{page, size,movePage,refresh, moveRead, loading,setLoading} = useCustomParam()
+    const {page, size, loading, setLoading, refresh,  moveRead} = useCustomParam()
 
-    const [serverData, setServerData]= useState<PageResponse<todoDTO>>(initState)
-    useEffect(()=>{
+    const [serverData, setServerData] = useState<PageResponse<todoDTO>>(initState)
+
+    useEffect(() => {
+
         setLoading(true)
-        getTodoList(page, size).then(data => {
+
+        getTodoList(page,size).then(data => {
             setServerData(data)
             setLoading(false)
-        });
-    },[page,size,refresh])
+        })
+
+    }, [page,size,refresh]);
+
+
 
     return (
         <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
@@ -42,7 +49,7 @@ function ListComponent() {
                 <ul className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden m-2">
 
                     {serverData.dtoList.map(todo =>
-                        <li key={todo.tno} onClick={()=>moveRead(todo.tno)}>
+                        <li key={todo.tno} onClick={()=> moveRead(todo.tno) }>
                             {todo.tno} - {todo.title}
                         </li>
                     )}
@@ -50,7 +57,8 @@ function ListComponent() {
                 </ul>
             </div>
 
-            <PageComponent serverData={serverData} moveListPage={movePage}/>
+
+
         </div>
     );
 }
