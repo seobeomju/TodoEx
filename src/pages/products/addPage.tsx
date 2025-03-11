@@ -1,4 +1,4 @@
-import AddComponent from "../../components/products/addComponent.tsx";
+import AddComponent19 from "../../components/products/addComponent19.tsx";
 
 
 function AddPage() {
@@ -6,7 +6,7 @@ function AddPage() {
         <div className={'mt-3 p-3 bg-blue-200 w-full h-full'}>
             <div>Product Add Page</div>
 
-            <AddComponent/>
+            <AddComponent19/>
         </div>
     );
 }
