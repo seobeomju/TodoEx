@@ -12,3 +12,10 @@ export async function getProductsList ( page:number = 1 , size: number = 10  ): 
 
     return res.data
 }
+
+export async function getProduct ( pno: number | string): Promise<ProductListDTO> {
+    const res =
+        await axios.get(`${HOST}/products/${pno}`)
+
+    return res.data
+}

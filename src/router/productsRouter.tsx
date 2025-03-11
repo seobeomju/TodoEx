@@ -5,6 +5,8 @@ import {lazy, Suspense} from "react";
 const Loading = <div>Loading..............</div>
 const ProductsList = lazy(() =>
     import('../pages/products/listPage.tsx'))
+const ProductsRead = lazy(() =>
+    import('../pages/products/readPage.tsx'))
 
 
 export default function productsRouter() {
@@ -14,6 +16,8 @@ export default function productsRouter() {
             <Route index element={<Navigate to={'list'} replace />}></Route>
             <Route path='list'
                    element={<Suspense fallback={Loading}><ProductsList/></Suspense>}></Route>
+            <Route path='read/:pno'
+                   element={<Suspense fallback={Loading}><ProductsRead/></Suspense>}></Route>
         </Route>
     )
 }
