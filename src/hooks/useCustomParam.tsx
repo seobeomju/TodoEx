@@ -37,12 +37,12 @@ export default function useCustomParam(){
         const movePath = !path ? 'read':path
 
         //todo/path/21?page=1&size=10
-        navigate(`/todo/${movePath}/${tnoNumber}${queryString}`)
+        navigate(`../${movePath}/${tnoNumber}${queryString}`)
 
     }
 
     const moveList=()=>{
-        navigate(`/todo/list${queryString}`)
+        navigate(`../list${queryString}`)
     }
 
     const movePage = (pageNum:number):void=>{
@@ -53,7 +53,7 @@ export default function useCustomParam(){
             return
         }
 
-        navigate(`/todo/list?page=${pageNum}&size=${size}`)
+        navigate(`../list?page=${pageNum}&size=${size}`)
     }
 
     return {page,size,refresh,loading,setLoading, movePage, moveRead, moveList}

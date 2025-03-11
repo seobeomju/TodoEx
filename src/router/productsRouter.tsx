@@ -1,4 +1,4 @@
-import {Route} from "react-router";
+import {Navigate, Route} from "react-router";
 import ProductIndexPage from "../pages/products/indexPage.tsx";
 import {lazy, Suspense} from "react";
 
@@ -10,6 +10,8 @@ const ProductsList = lazy(() =>
 export default function productsRouter() {
     return(
         <Route path='/products' element={<ProductIndexPage/>}>
+            /*list로 튕겨내기*/
+            <Route index element={<Navigate to={'list'} replace />}></Route>
             <Route path='list'
                    element={<Suspense fallback={Loading}><ProductsList/></Suspense>}></Route>
         </Route>
