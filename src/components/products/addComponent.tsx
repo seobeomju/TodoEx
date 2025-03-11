@@ -20,6 +20,16 @@ function AddComponent() {
         setProduct(prevState=>({...prevState,[name]:value}))
     }
 
+    const handleClick = () =>{
+
+        if(!uploadRef.current?.files || uploadRef.current?.files.length===0){
+            alert("첨부파일 필요")
+            return
+        }
+        const files = uploadRef.current.files
+        console.log(files)
+    }
+
     return (
         <div>
 
@@ -56,6 +66,12 @@ function AddComponent() {
                        className={'m-2 border-1 p-2'}
                        ref={uploadRef}
                 />
+            </div>
+            <div className="flex justify-end space-x-4">
+                <button
+                    className="px-4 py-2 bg-green-500 text-white rounded"
+                    onClick={handleClick}
+                >Add</button>
             </div>
         </div>
     );
