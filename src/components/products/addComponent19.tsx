@@ -2,8 +2,8 @@ import {useActionState} from "react";
 import {postProduct} from "../../api/productsApi.tsx";
 import LoadingComponent from "../common/loadingComponent.tsx";
 import ResultModal from "../common/resultModal.tsx";
-import useCustomResult from "../../hooks/useCustomResult.tsx";
 import useCustomParam from "../../hooks/useCustomParam.tsx";
+import useCustomResult from "../../hooks/useCustomResult.ts";
 
 async function addProduct(state:unknown, formData:FormData) {
 
