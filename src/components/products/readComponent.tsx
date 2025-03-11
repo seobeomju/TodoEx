@@ -43,7 +43,7 @@ function ProductReadComponent() {
                     {product.uploadFileNames.map(fileName => {
 
                         return (
-                            <li>
+                            <li key={fileName}>
                                 <img src={`http://122.34.51.94:8090/api/products/view/${fileName}`}/>
                             </li>
                         )
