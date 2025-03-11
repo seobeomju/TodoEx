@@ -1,53 +1,81 @@
 import useCustomParam from "../../hooks/useCustomParam.tsx";
 import {useEffect, useState} from "react";
 import {getProductsList} from "../../api/productsApi.tsx";
-import LoadingComponent from "../common/loadingComponent.tsx";
+import PageComponent from "../common/pageComponent.tsx";
 
-const initState:PageResponse2<ProductListDTO>={
-    dtoList:[],
-    next:false,
-    prev:false,
-    current:0,
-    nextPage:0,
-    pageNumList:[],
-    prevPage:0,
-    totalPage:0
+
+const initState:PageResponse2<ProductListDTO> = {
+    dtoList: [],
+    next: false,
+    prev: false,
+    current: 0,
+    nextPage: 0,
+    pageNumList: [],
+    prevPage: 0,
+    totalPage: 0
 }
 
 
 function ListComponent() {
-    const {page, size, loading, setLoading,refresh,moveRead,movePage}=useCustomParam()
+
+    const {page,size,refresh, moveRead,movePage} = useCustomParam()
 
     const [serverData, setServerData] = useState(initState)
 
     useEffect(() => {
-        getProductsList(page,size).then(data=>{
+
+        getProductsList(page,size).then(data => {
             setServerData(data)
         })
+
     }, [page,size,refresh]);
 
+    console.log(serverData)
 
     return (
-        <div>
-            <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
+        <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
 
-                <LoadingComponent isLoading={loading}/>
 
-                <div className="flex flex-wrap mx-auto justify-center p-6">
-                    List Component
-                </div>
 
-                <div>
-                    <ul className="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden m-2">
-                        {serverData.dtoList.map(product =>
-                            <li key={product.pno} onClick={()=>moveRead(product.pno)}>
-                                <img src={`http://122.34.51.94:8090/api/products/view/s_${product.uploadFileNames[0]}`}/>
-                                {product.pno} - {product.pname}
-                            </li>
-                        )}
-                    </ul>
-                </div>
+            <div className="flex flex-wrap mx-auto p-6">
+
+                {serverData.dtoList.map(product =>
+
+                    <div
+                        key= {product.pno}
+                        className="w-1/2 p-1 rounded shadow-md border-2 border-gray-300"
+                        onClick={() => moveRead(product.pno)}
+                    >
+
+                        <div className="flex flex-col  h-full">
+                            <div className="font-extrabold text-2xl p-2 w-full ">
+                                {product.pno}
+                            </div>
+                            <div className="text-1xl m-1 p-2 w-full flex flex-col">
+
+                                <div className="w-full overflow-hidden ">
+                                    <img alt="product"
+                                         className="m-auto rounded-md w-60"
+                                         src={`http://122.34.51.94:8090/api/products/view/s_${product.uploadFileNames[0]}`}/>
+                                </div>
+
+                                <div className="bottom-0 font-extrabold bg-white">
+                                    <div className="text-center p-1">
+                                        이름: {product.pname}
+                                    </div>
+                                    <div className="text-center p-1">
+                                        가격: {product.price}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
+
+            <PageComponent serverData={serverData} moveListPage={movePage}></PageComponent>
+
         </div>
     );
 }
