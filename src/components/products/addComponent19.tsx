@@ -1,19 +1,43 @@
 import {useActionState} from "react";
+import {postProduct} from "../../api/productsApi.tsx";
+import LoadingComponent from "../common/loadingComponent.tsx";
+import ResultModal from "../common/resultModal.tsx";
+import useCustomResult from "../../hooks/useCustomResult.tsx";
+import useCustomParam from "../../hooks/useCustomParam.tsx";
 
-async function addProduct(state: unknown, formData: FormData){
+async function addProduct(state:unknown, formData:FormData) {
 
-    console.log(state,formData)
+    const res = await postProduct(formData)
 
-    return {result:123}
+    console.log(res, state)
+
+    return res
 
 }
 
 function AddComponent19() {
-    //배열을 반환
-    const [state,action,isPending]=useActionState(addProduct,{result:0})
+
+    const [state, action, isPending ] = useActionState(addProduct, {result:0})
+    const { closeAction} = useCustomResult()
+    const {moveList} = useCustomParam()
+
+    const closeAll = () => {
+        closeAction(()=> {
+            moveList()
+        })
+    }
 
     return (
         <div>
+            <LoadingComponent isLoading={isPending}/>
+
+            {state.result !== 0 &&
+                <ResultModal
+                    show={ true }
+                    msg={ 'New Product Added ' }
+                    closeResultModal={closeAll}
+                />}
+
             <form>
                 <div>
                     Product Name
@@ -41,6 +65,10 @@ function AddComponent19() {
                            multiple={true}
                            className={'m-2 border-1 p-2'}
                     />
+                </div>
+
+                <div>
+                    <button formAction={action}>ADD</button>
                 </div>
             </form>
         </div>
